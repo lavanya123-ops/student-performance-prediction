@@ -1,0 +1,38 @@
+.bg-nav{
+    background-color: #235342;
+}
+ 
+.txt-brand{
+    color: white;
+}
+.img-h{
+    height: 550px;
+}
+.head{
+font-size: 45px;
+margin-top: -150px;
+color: #235342
+}
+.head-1{
+   
+font-size: 45px;
+margin-top: -150px;
+color: rgb(0, 255, 85);
+}
+.head-2{
+font-size: 45px;
+margin-top: -150px;
+color: rgb(10, 12, 11);
+}
+.para{
+    font-weight: 900;
+    color: white;
+}
+.para-1{
+ font-weight: 900;
+ color: white;
+}
+.para-2{
+ font-weight: 900;
+ color: white;
+}

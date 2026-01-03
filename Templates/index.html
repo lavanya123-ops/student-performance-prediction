@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Performance Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="../static/css/index.css" rel="stylesheet" type="text/css"/> 
+</head>
+  <body>
+    
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <script>
+      {% for category, message in messages %}
+        Swal.fire({
+          icon: "{{ 'success' if category == 'success' else 'error' if category == 'danger' else 'info' if category == 'info' else 'warning' }}",
+          title: "{{ message }}",
+          showConfirmButton: false,
+          timer: 2000
+        });
+      {% endfor %}
+    </script>
+  {% endif %}
+{% endwith %}
+
+
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-nav">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" 
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand txt-brand" href="#">EduPredict</a>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#How it works">How it Works</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#methodology">Methodology</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="/predict">Predict Now</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#contact">Contact</a>
+            </li>
+          </ul>
+          
+         <a class="btn btn-outline-light" type="link" href="/login">Logout</a>
+        </div>
+      </div>
+    </nav>
+
+
+{# Home Banner #}
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    
+    <!-- Slide 1 -->
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="../static/img/Teacher.jpg" class="d-block w-100 img-h" alt="Students studying">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="head">Unlock Academic Success</h5>
+        <p class="para">Predict student performance with data-driven insights to improve learning outcomes.</p>
+      </div>
+    </div>
+    
+    <!-- Slide 2 -->
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="../static/img/Aipower.jpg" class="d-block w-100 img-h" alt="Exam preparation">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="head-1">AI-Powered Performance Prediction</h5>
+        <p class="para-1">Harness machine learning to estimate exam scores and academic growth with accuracy.</p>
+      </div>
+    </div>
+    
+    <!-- Slide 3 -->
+    <div class="carousel-item">
+      <img src="../static/img/smartlearn.jpg" class="d-block w-100 img-h" alt="Classroom learning">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="head-2">Plan Smarter Learning Strategies</h5>
+        <p class="para-2">Identify strengths and weaknesses early to help students achieve their full potential.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+{# about #}
+<div id="about" class="card mb-3" style="max-width: 100%; height: 340px; border: none; background-color:;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="../static/img/student.jpg" class="img-fluid rounded-start" alt="Students learning">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">About Us</h5>
+        <p class="card-text" style="background-color:antiquewhite;">
+          At <b>EduPredict</b>, we believe every student has the potential to succeed.  
+          Our platform leverages advanced machine learning and data analytics to predict academic performance with accuracy and transparency.  
+          Whether you are a teacher supporting your students, a parent tracking progress, or an institution aiming to improve results —  
+          we provide insights that empower smarter learning decisions.
+        </p>
+        <p style="background-color: antiquewhite;">
+          By analyzing key factors such as study habits, socio-economic background, and test preparation,  
+          we help identify strengths and weaknesses early on.  
+          This enables timely interventions and personalized learning strategies — guiding students toward achieving their full potential.  
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Feature section #}
+<div id="features" style="margin-top: 30px;">
+  <h2 style="text-align: center;">Why Choose EduPredict</h2>
+  <p style="text-align: center;">Discover how our platform helps students and educators</p>
+   <h6 style="text-align: center;">Features</h6>
+
+  <div class="row row-cols-1 row-cols-md-4 g-4" style="margin-top: 20px;">
+    
+    <!-- Feature 1 -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="../static/img/reading.png" class="card-img-top" 
+             alt="An icon representing AI accuracy" 
+             style="width: 80px; height: 80px; margin: 20px auto 0;">
+        <div class="card-body">
+          <h5 class="card-title">AI-Powered Predictions</h5>
+          <p class="card-text">Get accurate predictions of student performance using advanced machine learning models.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="../static/img/write.png" class="card-img-top" 
+             alt="An icon representing instant insights" 
+             style="width: 80px; height: 80px; margin: 20px auto 0;">
+        <div class="card-body">
+          <h5 class="card-title">Instant Insights</h5>
+          <p class="card-text">Analyze student data in seconds and get real-time insights into academic progress.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="../static/img/student.png" class="card-img-top" 
+             alt="An icon representing personalized learning" 
+             style="width: 80px; height: 80px; margin: 20px auto 0;">
+        <div class="card-body">
+          <h5 class="card-title">Personalized Learning</h5>
+          <p class="card-text">Identify strengths and weaknesses to recommend tailored learning strategies for each student.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 4 -->
+    <div class="col">
+      <div class="card h-100 text-center">
+        <img src="../static/img/study.png" class="card-img-top" 
+             alt="An icon representing secure data" 
+             style="width: 80px; height: 80px; margin: 20px auto 0;">
+        <div class="card-body">
+          <h5 class="card-title">Secure & Confidential</h5>
+          <p class="card-text">All student data is safely encrypted, ensuring privacy and secure handling at every step.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{# How It Works #}
+<div id="How it works" style="margin-top: 50px; margin-bottom: 30px;">
+  <h2 style="text-align: center;">How It Works</h2>
+  
+  <p style="text-align: center;">Simple Steps To Predict Your Academic Performance</p>
+  <h6 style="text-align: center;">Getting Started is Easy</h6>
+</div>
+
+<div class="card mb-3" style="max-width: 100%;">
+  <div class="row g-0">
+    
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Step 1 – Enter Student Details</h5>
+        <p class="card-text">Provide basic information such as gender, study hours, parental education, and test preparation status.</p>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">Step 2 – Input Scores</h5>
+        <p class="card-text">Fill in previous scores in Math, Reading, and Writing to give the model accurate inputs.</p>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">Step 3 – AI Analysis</h5>
+        <p class="card-text">Our system processes your data using advanced machine learning models to evaluate performance factors.</p>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">Step 4 – Get Prediction</h5>
+        <p class="card-text">Receive instant insights into predicted performance along with suggestions to improve your learning outcomes.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <img src="../static/img/admission.jpg" class="img-fluid rounded-start" alt="Student performance illustration">
+    </div>
+  </div>
+</div>
+
+
+{# Methodology #}
+<div id="methodology" style="margin-top: 50px; margin-bottom: 30px;">
+  <h2 style="text-align: center;">Working</h2>
+  <p style="text-align: center;">Understand How Student Performance Prediction Works</p>
+  <h6 style="text-align: center;">Methodology</h6>
+</div>
+
+<!-- First Row -->
+<div class="row row-cols-1 row-cols-md-4 g-4" style="margin-left: 20px; margin-right: 20px;">
+  <!-- Step 1 -->
+  <div class="col">
+    <div class="card">
+      <img src="../static/img/education.png" class="card-img-top" alt="objective icon"
+           style="width: 80px; height: 80px; margin: 20px auto;">
+      <div class="card-body">
+        <h5 class="card-title">1. Define Goals</h5>
+        <p class="card-text">We start by identifying the purpose — predicting student scores and highlighting key performance factors.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Step 2 -->
+  <div class="col">
+    <div class="card">
+      <img src="../static/img/reading.png" class="card-img-top" alt="data gathering icon"
+           style="width: 80px; height: 80px; margin: 20px auto;">
+      <div class="card-body">
+        <h5 class="card-title">2. Collect Data</h5>
+        <p class="card-text">Student-related data such as demographics, study hours, parental education, and test preparation details are gathered.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Step 3 -->
+  <div class="col">
+    <div class="card">
+      <img src="../static/img/education1.png" class="card-img-top" alt="data validation icon"
+           style="width: 80px; height: 80px; margin: 20px auto;">
+      <div class="card-body">
+        <h5 class="card-title">3. Clean & Validate</h5>
+        <p class="card-text">The collected data is cleaned, standardized, and validated to ensure consistency and accuracy for model training.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Step 4 -->
+  <div class="col">
+    <div class="card">
+      <img src="../static/img/education2.png" class="card-img-top" alt="processing icon"
+           style="width: 80px; height: 80px; margin: 20px auto;">
+      <div class="card-body">
+        <h5 class="card-title">4. Data Processing</h5>
+        <p class="card-text">Key features such as math, reading, and writing scores are processed to prepare for accurate prediction.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Second Row -->
+<div class="row row-cols-1 row-cols-md-4 g-4" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+  <!-- Step 5 -->
+  <div class="col">
+    <div class="card">
+      <img src="../static/img/student.png" class="card-img-top" alt="analysis icon"
+           style="width: 80px; height: 80px; margin: 20px auto;">
+      <div class="card-body">
+        <h5 class="card-title">5. Model Training</h5>
+        <p class="card-text">Machine learning algorithms are trained on historical student data to recognize patterns in performance.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Step 6 -->
+  <div class="col">
+    <div class="card">
+      <img src="../static/img/education3.png" class="card-img-top" alt="prediction icon"
+           style="width: 80px; height: 80px; margin: 20px auto;">
+      <div class="card-body">
+        <h5 class="card-title">6. Prediction</h5>
+        <p class="card-text">The trained model predicts future student performance in different subjects with high accuracy.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Step 7 -->
+  <div class="col">
+    <div class="card">
+      <img src="../static/img/study.png" class="card-img-top" alt="report icon"
+           style="width: 80px; height: 80px; margin: 20px auto;">
+      <div class="card-body">
+        <h5 class="card-title">7. Report Generation</h5>
+        <p class="card-text">The results are presented in an easy-to-understand format, highlighting strengths and weaknesses.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Step 8 -->
+  <div class="col">
+    <div class="card">
+      <img src="../static/img/write.png" class="card-img-top" alt="improvement icon"
+           style="width: 80px; height: 80px; margin: 20px auto;">
+      <div class="card-body">
+        <h5 class="card-title">8. Feedback & Improvement</h5>
+        <p class="card-text">Based on the prediction, actionable feedback and study recommendations are provided for better outcomes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{# Contact #}
+
+<div id="contact" style="margin-top: 50px; margin-bottom: 30px;">
+  <h2 style="text-align: center;"> Contact Us </h2>
+  
+  <p style="text-align: center;">Stay connected with our team</p>
+  <h6 style="text-align: center;">Student Performance Project</h6>
+</div>
+
+<div class="card text-center" style="background-color: rgb(176, 135, 222);">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Check Your Academic Performance</h5>
+    <p class="card-text">Curious about your study outcomes? Use our AI-powered tool to predict 
+      your performance based on study habits, test scores, and learning patterns.</p>
+    <a href="#" class="btn btn-primary">Predict Your Performance Now</a>
+  </div>
+  <div class="card-footer text-body-secondary">
+    Updated recently
+  </div>
+</div>
+
+
+{#footer#}
+<footer class="bg-nav text-center text-lg-start">
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.8); color: white;">
+    2025 Student Performance Predictor. All rights reserved.
+  </div>
+</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>

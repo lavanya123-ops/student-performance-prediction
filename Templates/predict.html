@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link type="text/css" href="../static/css/index.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/5032883541.js" crossorigin="anonymous"></script>
+
+
+{% if prediction %}
+<script>
+  Swal.fire({
+    title: "<strong>Prediction Result</strong>",
+    icon: "info",
+    html: `
+      <p>The predicted student performance is: <strong>{{prediction}}</strong></p>
+      <p>Note: This is an estimated value and may vary based on various factors.</p>
+    `,
+    showCloseButton: true,
+    showCancelButton: true,   
+    confirmButtonText: `<i class="fa fa-thumbs-up"></i> Great!`,
+    cancelButtonText: `<i class="fa fa-thumbs-down"></i>`,
+  });
+</script>
+{% endif %}
+
+<!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-nav">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" 
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand txt-brand" href="#">EduPredict</a>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#How it works">How it Works</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#methodology">Methodology</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="/predict">Predict Now</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-brand" aria-current="page" href="#contact">Contact</a>
+            </li>
+          </ul>
+          <a class="btn btn-outline-light" type="link" href="/login">Logout</a>
+        </div>
+      </div>
+    </nav>
+
+
+{#prediction banner#}
+<div class="card" style="border: none; border-radius: 0px;">
+  <img src="../static/img/Edu_Prediction.png" class="card-img" alt="Student Performance">
+  <div class="card-img-overlay d-flex flex-column justify-content-start" style="background: rgba(0,0,0,0.4); padding-top: 30px;">
+    <h5 class="card-title text-white" style="text-align:center; font-size: 28px; font-weight: bold;">
+      Predict Your Academic Success
+    </h5>
+    <p class="card-text mt-4 text-white" style="text-align:center; font-size: 18px;">
+      Discover your learning potential with our AI-powered Student Performance Predictor.  
+      Get insights based on your scores, study habits, and background to improve your results.
+    </p>
+  </div>
+</div>
+
+
+{#prediction form #}
+<div class="container mt-5 mb-5" style="max-width:700px; border: 2px solid lightgreen; border-radius: 10px; padding: 20px;">
+
+  <h2 style="text-align: center; color: green;">Student Performance Prediction Form</h2>
+  <p style="text-align: center; color: black;">Fill out the form below to get your performance prediction</p>
+
+  <form action="/predict" method="post">
+
+   <!-- Gender -->
+<div class="form-floating mb-3">
+  <select class="form-select" id="gender" name="gender" required>
+    <option selected disabled>Select Gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+  <label for="gender">Gender</label>
+</div>
+
+<!-- Race/Ethnicity -->
+<div class="form-floating mb-3">
+  <select class="form-select" id="race_ethnicity" name="race_ethnicity" required>
+    <option selected disabled>Select Race/Ethnicity</option>
+    <option value="group A">Group A</option>
+    <option value="group B">Group B</option>
+    <option value="group C">Group C</option>
+    <option value="group D">Group D</option>
+    <option value="group E">Group E</option>
+  </select>
+  <label for="race_ethnicity">Race/Ethnicity</label>
+</div>
+
+<!-- Parent Education -->
+<div class="form-floating mb-3">
+  <select class="form-select" id="education" name="education" required>
+    <option selected disabled>Select Parent Education Level</option>
+    <option value="bachelor's degree">Bachelor's Degree</option>
+    <option value="some college">Some College</option>
+    <option value="master's degree">Master's Degree</option>
+    <option value="associate's degree">Associate's Degree</option>
+    <option value="high school">High School</option>
+    <option value="some high school">Some High School</option>
+  </select>
+  <label for="education">Parent Education Level</label>
+</div>
+
+<!-- Lunch -->
+<div class="form-floating mb-3">
+  <select class="form-select" id="lunch_free" name="lunch_free" required>
+    <option selected disabled>Select Lunch Type</option>
+    <option value="standard">Standard</option>
+    <option value="free/reduced">Free/Reduced</option>
+  </select>
+  <label for="lunch_free">Lunch Type</label>
+</div>
+
+<!-- Test Preparation -->
+<div class="form-floating mb-3">
+  <select class="form-select" id="test_preparation" name="test_preparation" required>
+    <option selected disabled>Select Test Preparation Course</option>
+    <option value="non">None</option>
+    <option value="completed">Completed</option>
+  </select>
+  <label for="test_preparation">Test Preparation Course</label>
+</div>
+
+<!-- Math Score -->
+<div class="form-floating mb-3">
+  <input type="number" class="form-control" id="math_score" name="math_score" placeholder="Math Score" min="0" max="100" required>
+  <label for="math_score">Math Score</label>
+</div>
+
+<!-- Reading Score -->
+<div class="form-floating mb-3">
+  <input type="number" class="form-control" id="reading_score" name="reading_score" placeholder="Reading Score" min="0" max="100" required>
+  <label for="reading_score">Reading Score</label>
+</div>
+
+<!-- Writing Score -->
+<div class="form-floating mb-3">
+  <input type="number" class="form-control" id="writing_score" name="writing_score" placeholder="Writing Score" min="0" max="100" required>
+  <label for="writing_score">Writing Score</label>
+</div>
+
+<!-- Submit Button -->
+<div class="text-center">
+  <button type="submit" class="btn btn-success">Predict Now</button>
+</div>
+
+
+  </form>
+</div>
+
+{# Contact #}
+
+<div id="contact" style="margin-top: 50px; margin-bottom: 30px;">
+  <h2 style="text-align: center;"> Contact Us </h2>
+  
+  <p style="text-align: center;">Stay connected with our team</p>
+  <h6 style="text-align: center;">Student Performance Project</h6>
+</div>
+
+<div class="card text-center" style="background-color: rgb(176, 135, 222);">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Check Your Academic Performance</h5>
+    <p class="card-text">Curious about your study outcomes? Use our AI-powered tool to predict 
+      your performance based on study habits, test scores, and learning patterns.</p>
+    <a href="#" class="btn btn-primary">Predict Your Performance Now</a>
+  </div>
+  <div class="card-footer text-body-secondary">
+    Updated recently
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link  href="../static/css/index.css" rel="stylesheet" type="text/css"/>
+  </body>
+</html>
